@@ -9,3 +9,13 @@ coverage/
 .vscode/
 .idea/
 .npmrc
+
+# Defensive: keep build outputs out of the source tree.
+# tsc must always emit to dist/, never alongside src/*.ts.
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+src/**/*.d.ts.map
+bin/**/*.d.ts
+bin/**/*.d.ts.map
+bin/**/*.js.map
