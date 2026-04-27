@@ -1,0 +1,29 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000001",
+      "salt_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "sequence": "GIGAVLKVLTT",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000001",
+        "parent_thesis_id": "ATL-001",
+        "length_residues": 11,
+        "modifications": [],
+        "predicted_structure_pdb": "HEADER test\nEND",
+        "predicted_affinity_kcal_mol": -7.5,
+        "structure_confidence": 0.82,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "4fad4ac8ee6a6f78b8d3617765bcd63379cffabc749a0cd16a83ea5fca7bc5b2",
+      "leaf_index": 0,
+      "inclusion_path": [],
+      "canonical_sequence_hash": "25d49b1840f09f9368cc9b1bcdab9e6be96030161f39c44da0f10632bc1ee27f",
+      "metadata_hash": "ff9be42b4e46537cc00a9b022148ae7fdbfdcd833dea19281e4d8f09567e315c",
+      "candidate_commit_bytes_hex": "4fad4ac8ee6a6f78b8d3617765bcd63379cffabc749a0cd16a83ea5fca7bc5b2"
+    }
+  ]
+}

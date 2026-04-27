@@ -1,0 +1,66 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000002",
+      "salt_hex": "0101010101010101010101010101010101010101010101010101010101010101",
+      "sequence": "KLAKLAKKLAKLAK",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000002",
+        "parent_thesis_id": "ATL-002",
+        "length_residues": 14,
+        "modifications": [
+          "cyclic-head-to-tail"
+        ],
+        "predicted_structure_pdb": "HEADER b1\nEND",
+        "predicted_affinity_kcal_mol": -9.0,
+        "structure_confidence": 0.91,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "c4874edc8ba767d0439f32d7a08f20f8398cc4fd26b314ab011e86c65431a224",
+      "leaf_index": 0,
+      "inclusion_path": [
+        {
+          "sibling_hex": "3edc33cecee9ca88c854a01acb1ed16e0fcbd0a8a77f7de4a65adcab8d23c7a8",
+          "side": "right"
+        }
+      ],
+      "canonical_sequence_hash": "68ee7ec471adb0d7f3ede4b2f29acfb1556e2f4ec870e59f2e945647ed98138d",
+      "metadata_hash": "2fa5258ab47c83128c2159bd94479091d69faad30859baede6ae1b4b3b8e89f9",
+      "candidate_commit_bytes_hex": "c4874edc8ba767d0439f32d7a08f20f8398cc4fd26b314ab011e86c65431a224"
+    },
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000003",
+      "salt_hex": "0202020202020202020202020202020202020202020202020202020202020202",
+      "sequence": "RGRGRGRGKLAK",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000003",
+        "parent_thesis_id": "ATL-002",
+        "length_residues": 12,
+        "modifications": [],
+        "predicted_structure_pdb": "HEADER b2\nEND",
+        "predicted_affinity_kcal_mol": -7.1,
+        "structure_confidence": 0.76,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "3edc33cecee9ca88c854a01acb1ed16e0fcbd0a8a77f7de4a65adcab8d23c7a8",
+      "leaf_index": 1,
+      "inclusion_path": [
+        {
+          "sibling_hex": "c4874edc8ba767d0439f32d7a08f20f8398cc4fd26b314ab011e86c65431a224",
+          "side": "left"
+        }
+      ],
+      "canonical_sequence_hash": "96afd42add75f9de42ab035cc1de6ea01a1d869f6e35544f58d1adf60b7a35fe",
+      "metadata_hash": "c7fa8d68d79b568297623aa51c890ba903f0ca20f572e0102874b3df8e4c5412",
+      "candidate_commit_bytes_hex": "3edc33cecee9ca88c854a01acb1ed16e0fcbd0a8a77f7de4a65adcab8d23c7a8"
+    }
+  ]
+}

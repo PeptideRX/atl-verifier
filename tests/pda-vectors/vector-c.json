@@ -1,0 +1,83 @@
+{
+  "pda_hex": "1bc8afdfee1152521fa1d7a2e9e1019b9d199879ab921f7f5c4874e06d1861f4",
+  "schema_version": 1,
+  "tee_attestation": {
+    "tee_type": "simulator",
+    "measurement_hex": "5045505449444552582d53494d2d56312d4d4541535552454d454e5400000000",
+    "signature_hex": "516ef796db40352f732978e4dd35d714e0e88df30d71e3b289562b6ce668b9e3",
+    "nonce_hex": "3030303030303030303030303030303030303030303030303030303030303030"
+  },
+  "pipeline_manifest": {
+    "backbone_model": {
+      "name": "rfdiffusion",
+      "version": "v1.3.0",
+      "weights_sha256": "1313131313131313131313131313131313131313131313131313131313131313"
+    },
+    "sequence_model": {
+      "name": "proteinmpnn",
+      "version": "v1.3.0",
+      "weights_sha256": "1414141414141414141414141414141414141414141414141414141414141414"
+    },
+    "structure_model": {
+      "name": "boltz2",
+      "version": "v2.2.0",
+      "weights_sha256": "1515151515151515151515151515151515151515151515151515151515151515"
+    },
+    "sequence_filter": {
+      "name": "plm_filter",
+      "version": "v0.3.0",
+      "weights_sha256": "1616161616161616161616161616161616161616161616161616161616161616"
+    }
+  },
+  "biosecurity_policy": {
+    "pathogen_db_version": "2026-04",
+    "pathogen_db_hash": "1717171717171717171717171717171717171717171717171717171717171717",
+    "toxin_db_version": "2026-04",
+    "toxin_db_hash": "1818181818181818181818181818181818181818181818181818181818181818",
+    "t_pathogen": 80,
+    "t_toxin": 70,
+    "t_motif": 90,
+    "blacklist_motif_patterns": [
+      "KKKKK"
+    ]
+  },
+  "target_spec": {
+    "target_pdb_hash": "1212121212121212121212121212121212121212121212121212121212121212",
+    "pocket_coordinates": [
+      {
+        "x_nm": 1,
+        "y_nm": 2,
+        "z_nm": 3
+      },
+      {
+        "x_nm": 4,
+        "y_nm": 5,
+        "z_nm": 6
+      },
+      {
+        "x_nm": 7,
+        "y_nm": 8,
+        "z_nm": 9
+      }
+    ],
+    "length_min": 10,
+    "length_max": 30,
+    "modifications_whitelist": [
+      "lipidated"
+    ],
+    "scope": "research use only, nonclinical, no human-use claim"
+  },
+  "tier_distribution": {
+    "green_count": 3,
+    "amber_count": 0,
+    "red_count": 0,
+    "black_count": 0,
+    "total_count": 3
+  },
+  "candidate_commit_root_hex": "a2d80586005d8d0c7628b08656c5acf754a56fa663a51ae3781bed78b2a5f93d",
+  "merkle_leaves_hex": [
+    "f70d1b74c96193fb829348efc958c9042f6738d0a003b33573c6493daeac1c9f",
+    "a4f27999f1cb148c702ab19c3b8ccbff9b5292034f4c85a567954a5e5bcf2e8a",
+    "a41f820bf9e1ae935e3273e3068b53465b6a19591cca35a94e2fb81ce34f7b85"
+  ]
+}
