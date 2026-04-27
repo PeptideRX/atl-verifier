@@ -64,8 +64,11 @@ const ok = await VerifyCommit(
 );
 ```
 
-See `docs/white-paper/atl-dissertation.md` Chapter 6 for the formal
-protocol; see `tests/commit.test.ts` for the exhaustive coverage.
+See `tests/commit.test.ts` for exhaustive coverage of the
+commit-reveal contract. The formal protocol specification (ATL
+dissertation, Chapter 6) lives in the closed-source peptideRx core
+repository; this package is the public, audit-grade reference
+implementation of that specification.
 
 ## Quick start: PDA verification
 
