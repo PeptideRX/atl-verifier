@@ -271,41 +271,53 @@ async function _verifyPDAInner(
   }
 
   // --- merkle_leaves_hex consistency check ---
-  // The PDAOutput exposes the per-candidate Merkle leaves as a
-  // convenience for selective-disclosure flows. They are not in the
-  // cryptographic chain that locks the final PDA hash (the root is),
-  // so an attacker who mutated leaves could not break pdaMatches above.
-  // BUT: the published field may mislead a future consumer who assumes
-  // the verifier checked them. Reject if the leaves are present and
-  // do not Merkle-fold to the published candidate_commit_root_hex.
-  if (Array.isArray(output.merkle_leaves_hex) && commitRootBytes) {
-    let leavesConsistent = true;
-    try {
-      const leafBytes: Uint8Array[] = [];
-      for (const leafHex of output.merkle_leaves_hex) {
-        if (typeof leafHex !== 'string') {
-          leavesConsistent = false;
-          break;
+  // PDAOutput is REQUIRED to publish merkle_leaves_hex: a non-empty
+  // ordered list of per-candidate commit leaf hashes. The verifier
+  // MUST recompute the Merkle root from these leaves and confirm it
+  // matches candidate_commit_root_hex.
+  //
+  // V1 of the protocol does not support zero-candidate PDA outputs,
+  // so an empty array is treated as malformed input rather than an
+  // edge case. Without this strict gate, an attacker could replace
+  // a legitimate leaf list with [] and the verifier would otherwise
+  // mark merkle_leaves_consistent = true (vacuously), misleading any
+  // downstream consumer that audits the verified_fields map.
+  if (commitRootBytes) {
+    if (!Array.isArray(output.merkle_leaves_hex)) {
+      reasons.push('merkle_leaves_missing_or_not_array');
+      verified['merkle_leaves_consistent'] = false;
+    } else if (output.merkle_leaves_hex.length === 0) {
+      reasons.push('merkle_leaves_empty');
+      verified['merkle_leaves_consistent'] = false;
+    } else {
+      let leavesConsistent = true;
+      try {
+        const leafBytes: Uint8Array[] = [];
+        for (const leafHex of output.merkle_leaves_hex) {
+          if (typeof leafHex !== 'string') {
+            leavesConsistent = false;
+            break;
+          }
+          const lb = parseDigestHex(leafHex);
+          if (!lb) {
+            leavesConsistent = false;
+            break;
+          }
+          leafBytes.push(lb);
         }
-        const lb = parseDigestHex(leafHex);
-        if (!lb) {
-          leavesConsistent = false;
-          break;
+        if (leavesConsistent) {
+          const recomputedRoot = await pdaMerkleRoot(leafBytes);
+          if (!pdaTimingSafeEqual(recomputedRoot, commitRootBytes)) {
+            leavesConsistent = false;
+          }
         }
-        leafBytes.push(lb);
+      } catch {
+        leavesConsistent = false;
       }
-      if (leavesConsistent && leafBytes.length > 0) {
-        const recomputedRoot = await pdaMerkleRoot(leafBytes);
-        if (!pdaTimingSafeEqual(recomputedRoot, commitRootBytes)) {
-          leavesConsistent = false;
-        }
+      verified['merkle_leaves_consistent'] = leavesConsistent;
+      if (!leavesConsistent) {
+        reasons.push('merkle_leaves_inconsistent_with_root');
       }
-    } catch {
-      leavesConsistent = false;
-    }
-    verified['merkle_leaves_consistent'] = leavesConsistent;
-    if (!leavesConsistent) {
-      reasons.push('merkle_leaves_inconsistent_with_root');
     }
   }
 

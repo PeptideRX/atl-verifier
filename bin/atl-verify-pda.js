@@ -156,12 +156,20 @@ async function main() {
   try {
     const report = await verifyPDA(output, options);
     const verdict = report.passed ? 'PASS' : 'FAIL';
+    // Defensive field access: malformed input may have a missing/
+    // non-object tee_attestation, etc. The verifier already returns a
+    // structured report; the CLI must not turn a handled rejection
+    // into an unhandled crash by dereferencing nested fields.
+    const out = (output && typeof output === 'object') ? output : {};
+    const tee = (out.tee_attestation && typeof out.tee_attestation === 'object')
+      ? out.tee_attestation
+      : {};
     stdout.write(`atl-verify-pda: ${verdict}\n`);
     stdout.write(`  path             ${args.path}\n`);
-    stdout.write(`  pda_hex          ${output.pda_hex}\n`);
-    stdout.write(`  schema_version   ${output.schema_version}\n`);
-    stdout.write(`  tee_type         ${output.tee_attestation.tee_type}\n`);
-    stdout.write(`  commit_root_hex  ${output.candidate_commit_root_hex}\n`);
+    stdout.write(`  pda_hex          ${out.pda_hex ?? '<missing>'}\n`);
+    stdout.write(`  schema_version   ${out.schema_version ?? '<missing>'}\n`);
+    stdout.write(`  tee_type         ${tee.tee_type ?? '<missing>'}\n`);
+    stdout.write(`  commit_root_hex  ${out.candidate_commit_root_hex ?? '<missing>'}\n`);
     stdout.write('  verified_fields:\n');
     const fields = Object.entries(report.verified_fields).sort(
       ([a], [b]) => (a < b ? -1 : a > b ? 1 : 0),

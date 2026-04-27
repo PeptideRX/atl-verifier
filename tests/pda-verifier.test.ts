@@ -462,6 +462,88 @@ describe('Tamper detection', () => {
 });
 
 // -----------------------------------------------------------------------------
+// merkle_leaves_hex shape gates. The verifier MUST reject malformed,
+// missing, or empty leaf arrays rather than vacuously passing the
+// merkle_leaves_consistent check.
+// -----------------------------------------------------------------------------
+
+describe('merkle_leaves_hex shape gates', () => {
+  it('rejects a PDAOutput whose merkle_leaves_hex is an empty array', async () => {
+    const output = loadVector('a');
+    const tampered: PDAOutput = { ...output, merkle_leaves_hex: [] };
+    const r = await verifyPDA(tampered);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_empty');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+
+  it('rejects a PDAOutput whose merkle_leaves_hex field is missing entirely', async () => {
+    const output = loadVector('a');
+    const stripped: Partial<PDAOutput> = { ...output };
+    delete (stripped as { merkle_leaves_hex?: unknown }).merkle_leaves_hex;
+    const r = await verifyPDA(stripped as PDAOutput);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_missing_or_not_array');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+
+  it('rejects a PDAOutput whose merkle_leaves_hex is not an array', async () => {
+    const output = loadVector('a');
+    const tampered = {
+      ...output,
+      merkle_leaves_hex: 'not-an-array',
+    } as unknown as PDAOutput;
+    const r = await verifyPDA(tampered);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_missing_or_not_array');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+
+  it('rejects a PDAOutput whose merkle_leaves_hex is all zeros', async () => {
+    const output = loadVector('a');
+    const tampered: PDAOutput = {
+      ...output,
+      merkle_leaves_hex: ['0'.repeat(64)],
+    };
+    const r = await verifyPDA(tampered);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_inconsistent_with_root');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+
+  it('rejects a PDAOutput where one leaf has malformed (non-hex) characters', async () => {
+    const output = loadVector('b');
+    const tampered: PDAOutput = {
+      ...output,
+      merkle_leaves_hex: [
+        output.merkle_leaves_hex[0]!,
+        '0g'.padEnd(64, '0'),
+      ],
+    };
+    const r = await verifyPDA(tampered);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_inconsistent_with_root');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+
+  it('rejects a PDAOutput where the leaves are reordered', async () => {
+    const output = loadVector('b');
+    expect(output.merkle_leaves_hex.length).toBe(2);
+    const tampered: PDAOutput = {
+      ...output,
+      merkle_leaves_hex: [
+        output.merkle_leaves_hex[1]!,
+        output.merkle_leaves_hex[0]!,
+      ],
+    };
+    const r = await verifyPDA(tampered);
+    expect(r.passed).toBe(false);
+    expect(r.blocked_reasons).toContain('merkle_leaves_inconsistent_with_root');
+    expect(r.verified_fields.merkle_leaves_consistent).toBe(false);
+  });
+});
+
+// -----------------------------------------------------------------------------
 // Merkle primitive sanity.
 // -----------------------------------------------------------------------------
 

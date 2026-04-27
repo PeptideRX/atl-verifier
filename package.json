@@ -1,6 +1,6 @@
 {
   "name": "@peptiderx/atl-verifier",
-  "version": "0.2.0-experimental.2",
+  "version": "0.2.0-experimental.3",
   "description": "EXPERIMENTAL · client-side verifier for ATL commit-reveal, Merkle roots, state roots, and the Peptide Design Attestation (PDA) protocol. Cross-language byte-identical with the Python and Rust reference implementations on the three frozen test vectors. Active development; APIs may change.",
   "license": "Apache-2.0",
   "author": "Peptide RX <hello@peptiderx.io>",
@@ -31,7 +31,9 @@
   },
   "files": [
     "dist/",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/copy-bin.mjs",

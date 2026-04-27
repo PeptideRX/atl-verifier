@@ -42,10 +42,14 @@ commitment can stay private, but the code that verifies it cannot.**
 
 ## Installation
 
+The package ships under the `experimental` dist-tag while protocol V1 stabilizes. Install the tagged version (or pin the exact one) so a future stable release does not silently swap out the implementation under you:
+
 ```bash
-pnpm add @peptiderx/atl-verifier
+pnpm add @peptiderx/atl-verifier@experimental
 # or
-npm install @peptiderx/atl-verifier
+npm install @peptiderx/atl-verifier@experimental
+# or pin the exact version (recommended for CI)
+npm install @peptiderx/atl-verifier@0.2.0-experimental.3
 ```
 
 Node 20+ exposes Web Crypto as `globalThis.crypto`. Older runtimes must
@@ -280,8 +284,8 @@ Produces `dist/` (library) and `dist/bin/atl-verify-pda.js` (CLI).
 
 ## License
 
-Apache-2.0. The repository LICENSE file additionally includes a non-binding
-notice declaring nonclinical research-only scope and disclaiming clinical or
-regulatory implications. The notice does not impose a use restriction beyond
-the terms of Apache-2.0; it is informational. If you need a use-restricted
-license, contact us before integrating.
+Apache-2.0. See `NOTICE` for non-binding, informational nonclinical /
+research-scope disclaimers. The `NOTICE` file does not modify the
+Apache-2.0 terms in `LICENSE`; it documents the project's research scope
+and the limits of what successful verification mathematically establishes.
+If you need a use-restricted license, contact us before integrating.

@@ -8,7 +8,10 @@
  * Where:
  *   D = domain separator "PEPTIDE_RX_ATL_PREDICTION_V1"
  *   V = schema version identifier
- *   S = 256-bit salt (hex-encoded)
+ *   S = salt, hex-encoded. Minimum length is enforced at MIN_SALT_BITS
+ *       (128 bits / 32 hex chars). Standard Peptide Rx deployments
+ *       generate 256-bit salts (64 hex chars); the protocol minimum
+ *       allows shorter salts but anything under 128 bits is refused.
  *   P = structured prediction payload
  *   JCS(P) = canonical JSON per RFC 8785
  *

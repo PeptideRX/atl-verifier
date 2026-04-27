@@ -28,8 +28,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (locked)
+        run: npm ci
 
       - name: Build (tsc emits + verifies types in one pass)
         run: npm run build
@@ -63,3 +63,30 @@ jobs:
           process.exit(fail === 0 ? 0 : 1);
           EOF
           node .verify-hashes.mjs
+
+      - name: Pack-list guardrail (no src/ tests/ scripts/ leak into npm tarball)
+        run: |
+          cat > .packlist-check.mjs <<'EOF'
+          import { execSync } from 'node:child_process';
+          const out = execSync('npm pack --dry-run --json', { encoding: 'utf8' });
+          const meta = JSON.parse(out)[0];
+          const forbidden = [
+            /^src\//,
+            /^tests\//,
+            /^scripts\//,
+            /^bin\/[^/]+\.ts$/,
+            /\.tsbuildinfo$/,
+            /^\.env/,
+            /^\.git/,
+          ];
+          const offenders = (meta.files || [])
+            .map((f) => f.path)
+            .filter((p) => forbidden.some((re) => re.test(p)));
+          if (offenders.length) {
+            console.error('Forbidden files in tarball pack-list:');
+            for (const p of offenders) console.error('  ' + p);
+            process.exit(1);
+          }
+          console.log(`Pack-list OK: ${meta.files.length} entries, ${(meta.unpackedSize / 1024).toFixed(1)} KB unpacked.`);
+          EOF
+          node .packlist-check.mjs
