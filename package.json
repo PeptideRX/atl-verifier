@@ -37,7 +37,6 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.bin.json",
-    "build:atlas-bundle": "node scripts/build-atlas-bundle.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.bin.json --noEmit",
@@ -45,7 +44,6 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
-    "esbuild": "^0.21.5",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
   },
