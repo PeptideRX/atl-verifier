@@ -62,18 +62,28 @@ export function bytesToHex(bytes: Uint8Array): string {
 /**
  * Convert a lowercase hex string to a Uint8Array. Accepts uppercase as well;
  * throws on odd length or non-hex characters.
+ *
+ * Uses a strict character-class regex up front because Number.parseInt
+ * silently accepts mixed pairs like "0g" (parses as 0) and otherwise
+ * truncates at the first invalid character. The regex is the only
+ * thing standing between the verifier and silent acceptance of
+ * malformed salts or commitments.
  */
+const _HEX_RE = /^[0-9a-fA-F]*$/;
+
 export function hexToBytes(hex: string): Uint8Array {
+  if (typeof hex !== 'string') {
+    throw new TypeError(`hexToBytes: input must be a string, got ${typeof hex}`);
+  }
   if (hex.length % 2 !== 0) {
     throw new Error(`hexToBytes: odd-length input (${hex.length})`);
   }
+  if (!_HEX_RE.test(hex)) {
+    throw new Error('hexToBytes: input contains non-hex characters');
+  }
   const out = new Uint8Array(hex.length / 2);
   for (let i = 0; i < hex.length; i += 2) {
-    const byte = Number.parseInt(hex.slice(i, i + 2), 16);
-    if (Number.isNaN(byte)) {
-      throw new Error(`hexToBytes: invalid hex at offset ${i}`);
-    }
-    out[i / 2] = byte;
+    out[i / 2] = Number.parseInt(hex.slice(i, i + 2), 16);
   }
   return out;
 }
