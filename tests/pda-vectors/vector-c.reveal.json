@@ -1,0 +1,106 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000004",
+      "salt_hex": "2020202020202020202020202020202020202020202020202020202020202020",
+      "sequence": "ACDEFGHIKL",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000004",
+        "parent_thesis_id": "ATL-003",
+        "length_residues": 10,
+        "modifications": [],
+        "predicted_structure_pdb": "HEADER c0\nEND",
+        "predicted_affinity_kcal_mol": -6.0,
+        "structure_confidence": 0.6,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "f70d1b74c96193fb829348efc958c9042f6738d0a003b33573c6493daeac1c9f",
+      "leaf_index": 0,
+      "inclusion_path": [
+        {
+          "sibling_hex": "a4f27999f1cb148c702ab19c3b8ccbff9b5292034f4c85a567954a5e5bcf2e8a",
+          "side": "right"
+        },
+        {
+          "sibling_hex": "e369089b5faea903f0543c577432c1188b161b7d2bb858e369a0f68b7e34dd04",
+          "side": "right"
+        }
+      ],
+      "canonical_sequence_hash": "be5884f5108f13d3e64bda3992e916bc204e704322e49bb1623ef9a7b496e64b",
+      "metadata_hash": "e1a3644689d6aeaa4801658ec7fb17bc5df07cea8c414fb2665d24003a2bc14b",
+      "candidate_commit_bytes_hex": "f70d1b74c96193fb829348efc958c9042f6738d0a003b33573c6493daeac1c9f"
+    },
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000005",
+      "salt_hex": "2121212121212121212121212121212121212121212121212121212121212121",
+      "sequence": "ACDEFGHIKLM",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000005",
+        "parent_thesis_id": "ATL-003",
+        "length_residues": 11,
+        "modifications": [],
+        "predicted_structure_pdb": "HEADER c1\nEND",
+        "predicted_affinity_kcal_mol": -6.5,
+        "structure_confidence": 0.65,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "a4f27999f1cb148c702ab19c3b8ccbff9b5292034f4c85a567954a5e5bcf2e8a",
+      "leaf_index": 1,
+      "inclusion_path": [
+        {
+          "sibling_hex": "f70d1b74c96193fb829348efc958c9042f6738d0a003b33573c6493daeac1c9f",
+          "side": "left"
+        },
+        {
+          "sibling_hex": "e369089b5faea903f0543c577432c1188b161b7d2bb858e369a0f68b7e34dd04",
+          "side": "right"
+        }
+      ],
+      "canonical_sequence_hash": "f8c75df0255a5b5e060f33388b74a533c0587ea350480ef9843b619c4bc3e225",
+      "metadata_hash": "d761cca7fc865c6acc5ba00ce09f07192646f6963da0f5b27f5312752c3534c0",
+      "candidate_commit_bytes_hex": "a4f27999f1cb148c702ab19c3b8ccbff9b5292034f4c85a567954a5e5bcf2e8a"
+    },
+    {
+      "candidate_id": "00000000-0000-4000-8000-000000000006",
+      "salt_hex": "2222222222222222222222222222222222222222222222222222222222222222",
+      "sequence": "ACDEFGHIKLMN",
+      "metadata": {
+        "candidate_id": "00000000-0000-4000-8000-000000000006",
+        "parent_thesis_id": "ATL-003",
+        "length_residues": 12,
+        "modifications": [],
+        "predicted_structure_pdb": "HEADER c2\nEND",
+        "predicted_affinity_kcal_mol": -7.0,
+        "structure_confidence": 0.7,
+        "design_method": "rfdiffusion_proteinmpnn_boltz2",
+        "generated_at": "2026-04-22T12:00:00Z",
+        "pop_shield_tier": "green",
+        "clinical_claims_pass": true,
+        "scope": "research use only, nonclinical, no human-use claim"
+      },
+      "leaf_hex": "a41f820bf9e1ae935e3273e3068b53465b6a19591cca35a94e2fb81ce34f7b85",
+      "leaf_index": 2,
+      "inclusion_path": [
+        {
+          "sibling_hex": "a41f820bf9e1ae935e3273e3068b53465b6a19591cca35a94e2fb81ce34f7b85",
+          "side": "right"
+        },
+        {
+          "sibling_hex": "c8a72f8d6e66522a0de41ab738cc2401308247eff8e2b6649c06234027affbaa",
+          "side": "left"
+        }
+      ],
+      "canonical_sequence_hash": "e95a7cf5e148879d9d81389130bfecd90da4bccd1dbb0b39f81a0df1d11fda1d",
+      "metadata_hash": "2d0f67a60eb333da639b2f5786967391f3ce6e4abe462d3143d765dbe53f1d00",
+      "candidate_commit_bytes_hex": "a41f820bf9e1ae935e3273e3068b53465b6a19591cca35a94e2fb81ce34f7b85"
+    }
+  ]
+}

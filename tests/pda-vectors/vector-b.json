@@ -1,0 +1,79 @@
+{
+  "pda_hex": "4c261a1105a45c55fb0d2eb45d74542b7f70b78b27aa41999cfa444400051594",
+  "schema_version": 1,
+  "tee_attestation": {
+    "tee_type": "simulator",
+    "measurement_hex": "5045505449444552582d53494d2d56312d4d4541535552454d454e5400000000",
+    "signature_hex": "4c69669203082a07270d73f8eb222a18b0cee898f9e7fe41e80adb9234f42707",
+    "nonce_hex": "0303030303030303030303030303030303030303030303030303030303030303"
+  },
+  "pipeline_manifest": {
+    "backbone_model": {
+      "name": "rfdiffusion",
+      "version": "v1.2.0",
+      "weights_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "sequence_model": {
+      "name": "proteinmpnn",
+      "version": "v1.2.3",
+      "weights_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "structure_model": {
+      "name": "boltz2",
+      "version": "v2.1.0",
+      "weights_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "sequence_filter": {
+      "name": "solubility_filter",
+      "version": "v0.2.0",
+      "weights_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  },
+  "biosecurity_policy": {
+    "pathogen_db_version": "2026-03",
+    "pathogen_db_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "toxin_db_version": "2026-03",
+    "toxin_db_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "t_pathogen": 75,
+    "t_toxin": 65,
+    "t_motif": 85,
+    "blacklist_motif_patterns": [
+      "RGD",
+      "LDV"
+    ]
+  },
+  "target_spec": {
+    "target_pdb_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "pocket_coordinates": [
+      {
+        "x_nm": 100,
+        "y_nm": 200,
+        "z_nm": 300
+      },
+      {
+        "x_nm": 110,
+        "y_nm": 210,
+        "z_nm": 310
+      }
+    ],
+    "length_min": 12,
+    "length_max": 25,
+    "modifications_whitelist": [
+      "lipidated",
+      "cyclic-head-to-tail"
+    ],
+    "scope": "research use only, nonclinical, no human-use claim"
+  },
+  "tier_distribution": {
+    "green_count": 2,
+    "amber_count": 0,
+    "red_count": 0,
+    "black_count": 0,
+    "total_count": 2
+  },
+  "candidate_commit_root_hex": "55fd6d888ed710eb9c101fd66b37de39ee655962a972cde10677a77ad57f7794",
+  "merkle_leaves_hex": [
+    "c4874edc8ba767d0439f32d7a08f20f8398cc4fd26b314ab011e86c65431a224",
+    "3edc33cecee9ca88c854a01acb1ed16e0fcbd0a8a77f7de4a65adcab8d23c7a8"
+  ]
+}

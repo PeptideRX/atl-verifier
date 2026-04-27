@@ -1,0 +1,67 @@
+{
+  "pda_hex": "28dbab77f560665f9b374b7fb8b5c0dfe8c8ff6582cbd29f773241acfb3a640e",
+  "schema_version": 1,
+  "tee_attestation": {
+    "tee_type": "simulator",
+    "measurement_hex": "5045505449444552582d53494d2d56312d4d4541535552454d454e5400000000",
+    "signature_hex": "0c73c6ff664e113509088ba57482ab9a57f7216acbbfeb65820db7fedb348325",
+    "nonce_hex": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "pipeline_manifest": {
+    "backbone_model": {
+      "name": "rfdiffusion",
+      "version": "v1.0.0",
+      "weights_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "sequence_model": {
+      "name": "proteinmpnn",
+      "version": "v1.0.1",
+      "weights_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "structure_model": {
+      "name": "boltz2",
+      "version": "v2.0.0",
+      "weights_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "sequence_filter": {
+      "name": "identity_filter",
+      "version": "v0.1.0",
+      "weights_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  },
+  "biosecurity_policy": {
+    "pathogen_db_version": "2026-01",
+    "pathogen_db_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+    "toxin_db_version": "2026-01",
+    "toxin_db_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+    "t_pathogen": 70,
+    "t_toxin": 60,
+    "t_motif": 80,
+    "blacklist_motif_patterns": []
+  },
+  "target_spec": {
+    "target_pdb_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pocket_coordinates": [
+      {
+        "x_nm": 0,
+        "y_nm": 0,
+        "z_nm": 0
+      }
+    ],
+    "length_min": 8,
+    "length_max": 20,
+    "modifications_whitelist": [],
+    "scope": "research use only, nonclinical, no human-use claim"
+  },
+  "tier_distribution": {
+    "green_count": 1,
+    "amber_count": 0,
+    "red_count": 0,
+    "black_count": 0,
+    "total_count": 1
+  },
+  "candidate_commit_root_hex": "4fad4ac8ee6a6f78b8d3617765bcd63379cffabc749a0cd16a83ea5fca7bc5b2",
+  "merkle_leaves_hex": [
+    "4fad4ac8ee6a6f78b8d3617765bcd63379cffabc749a0cd16a83ea5fca7bc5b2"
+  ]
+}
