@@ -1,0 +1,53 @@
+{
+  "vectors": [
+    {
+      "name": "singleton",
+      "leaves": [
+        "aaa"
+      ],
+      "prehashed": false,
+      "root_hex": "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0"
+    },
+    {
+      "name": "two_leaves",
+      "leaves": [
+        "aaa",
+        "bbb"
+      ],
+      "prehashed": false,
+      "root_hex": "6a0b1d67884e58786e97bc51544cbba4cc3e1279d8ff46da2fa32bcdb44a053e"
+    },
+    {
+      "name": "three_leaves_oddfill",
+      "leaves": [
+        "aaa",
+        "bbb",
+        "ccc"
+      ],
+      "prehashed": false,
+      "root_hex": "ec1b9828bcc1e13ea8e998121fc508f892d30e4633c3e2b460ce4f640d96e058"
+    },
+    {
+      "name": "four_leaves",
+      "leaves": [
+        "aaa",
+        "bbb",
+        "ccc",
+        "ddd"
+      ],
+      "prehashed": false,
+      "root_hex": "20d91ce8e5b46488788bee6b7b2dec6216168c5bf2e1dc484be420bad8462aa9"
+    },
+    {
+      "name": "atl_001_commitments",
+      "leaves": [
+        "ff4cb095af6eb0c2b440805cb15979e327c41c63eeeb2742d3c2b7ea44d781bb",
+        "570e290e79880f8ad36a42732144aceb86fe70f955895b490845dd14fcb8a6f0",
+        "ff29bb32bb947771448fe812bc90e4546e1bb9c84b8093e61a5ffe6fdf980975",
+        "cb6e327ae9d56893d0bc24207a5dcc676379888b174eea1213dc6694a2c57d71"
+      ],
+      "prehashed": true,
+      "root_hex": "8194ed57b6be8935460c4fdfebbd9016db5a15d63efd8efbb0ff9365ecd1cebf"
+    }
+  ]
+}

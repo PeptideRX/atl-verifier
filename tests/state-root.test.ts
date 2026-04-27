@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { computeStateRoot, verifyStateRoot, type AtlEvent } from '../src/state-root.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const vectorsPath = join(here, '../../../tests/vectors/state-root.vectors.json');
+const vectorsPath = join(here, '../tests/vectors/state-root.vectors.json');
 
 interface StateRootVector {
   name: string;

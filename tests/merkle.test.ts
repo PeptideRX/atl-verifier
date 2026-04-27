@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { computeMerkleRoot, verifyMerkleRoot } from '../src/merkle.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const vectorsPath = join(here, '../../../tests/vectors/merkle.vectors.json');
+const vectorsPath = join(here, '../tests/vectors/merkle.vectors.json');
 
 interface MerkleVector {
   name: string;
