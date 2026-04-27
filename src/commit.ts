@@ -17,7 +17,11 @@
  */
 
 import { canonicalizeJSON, type JsonValue } from './canonical-json.js';
-import { DEFAULT_SCHEMA_VERSION, DOMAIN_SEPARATOR } from './constants.js';
+import {
+  DEFAULT_SCHEMA_VERSION,
+  DOMAIN_SEPARATOR,
+  MIN_SALT_BITS,
+} from './constants.js';
 import {
   bytesToHex,
   concatBytes,
@@ -39,6 +43,11 @@ export interface CommitOptions {
 /**
  * Compute the canonical commitment bytes for a single-endpoint prediction.
  * Returns the 32-byte SHA-256 digest.
+ *
+ * Enforces a minimum salt length of MIN_SALT_BITS / 4 hex chars (default
+ * 32 hex chars = 128 bits). Standard ATL deployments use a 256-bit salt
+ * (64 hex chars). Anything shorter is rejected up front so a downstream
+ * caller cannot accidentally make commitments under-saturated.
  */
 export async function computeCommitBytes(
   payload: JsonValue,
@@ -47,7 +56,15 @@ export async function computeCommitBytes(
 ): Promise<Uint8Array> {
   const domain = options.domainSeparator ?? DOMAIN_SEPARATOR;
   const version = options.schemaVersion ?? DEFAULT_SCHEMA_VERSION;
-  const saltBytes = hexToBytes(normalizeHex(saltHex));
+  const normalized = normalizeHex(saltHex);
+  if (normalized.length * 4 < MIN_SALT_BITS) {
+    throw new Error(
+      `computeCommitBytes: salt is only ${normalized.length * 4} bits ` +
+      `(min ${MIN_SALT_BITS}); standard ATL salt is 256 bits / 64 hex chars`,
+    );
+  }
+  // hexToBytes (now strict) rejects any non-hex characters.
+  const saltBytes = hexToBytes(normalized);
   const jcs = canonicalizeJSON(payload);
   const input = concatBytes(domain, version, saltBytes, jcs);
   return sha256Bytes(input);

@@ -18,21 +18,25 @@
 
    ---
 
-   ADDITIONAL NOTICE — RESEARCH USE ONLY
+   INFORMATIONAL NOTICE — NONCLINICAL RESEARCH SCOPE
 
-   This software is the open-source verifier for cryptographic
+   The following notice is informational and does NOT impose a use
+   restriction beyond the terms of Apache-2.0 above. It documents the
+   project's research scope and the limits of what successful
+   verification mathematically establishes.
+
+   This software is an open-source verifier for cryptographic
    commitments produced by the Peptide Rx Autonomous Thesis Loop (ATL)
-   protocol. The protocol and this verifier are scoped to nonclinical
-   research evaluation only.
+   protocol. Successful verification of any commitment establishes only
+   the internal cryptographic consistency of the chain of custody. It
+   does NOT establish, claim, or imply:
 
-   No output of this verifier implies a clinical claim, human safety,
-   therapeutic efficacy, or compliance with any regulatory framework.
-
-   The verifier does NOT prove that a peptide design is safe for human
-   use. It proves only that the cryptographic chain of custody for a
-   published design attestation is internally consistent.
+   - human safety of any peptide design referenced in the commitment
+   - therapeutic efficacy for any indication
+   - compliance with any regulatory framework
+   - that the underlying design model is fit for any particular purpose
 
    Software status: EXPERIMENTAL. APIs and protocol details are subject
    to change. The cross-language byte-identical property is locked on
-   the published test vectors; everything else is fair game for
-   revision until the protocol stabilizes at v1.0.
+   the three published test vectors; everything else may be revised
+   until the protocol stabilizes at v1.0.

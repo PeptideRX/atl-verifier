@@ -38,6 +38,7 @@ import {
   pdaTimingSafeEqual,
   pdaU32BE,
 } from './hashing.js';
+import { pdaMerkleRoot } from './merkle.js';
 import type {
   BiosecurityPolicy,
   PDAOutput,
@@ -68,6 +69,57 @@ export async function verifyPDA(
 ): Promise<PDAVerificationReport> {
   const reasons: string[] = [];
   const verified: Record<string, boolean> = {};
+
+  // Wrap the entire verification in a defensive try/catch. The public
+  // contract is: malformed input produces a structured PDAVerificationReport
+  // with passed=false and a machine-readable block reason. It MUST NOT
+  // throw a raw TypeError or other exception out of the verifier's
+  // surface area, because callers would otherwise need to wrap every
+  // call in a try/catch and the API would lose its determinism.
+  try {
+    return await _verifyPDAInner(output, options, reasons, verified);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (!reasons.includes('verifier_internal_error')) {
+      reasons.push('verifier_internal_error');
+    }
+    verified['verifier_did_not_throw'] = false;
+    return report(false, reasons, verified, message);
+  }
+}
+
+async function _verifyPDAInner(
+  output: PDAOutput,
+  options: VerifyPDAOptions,
+  reasons: string[],
+  verified: Record<string, boolean>,
+): Promise<PDAVerificationReport> {
+
+  // --- top-level shape sanity (catches malformed input early) ---
+  if (output === null || typeof output !== 'object' || Array.isArray(output)) {
+    reasons.push('output_not_object');
+    return report(false, reasons, verified);
+  }
+  if (typeof output.pda_hex !== 'string') {
+    reasons.push('pda_hex_missing_or_not_string');
+    return report(false, reasons, verified);
+  }
+  if (!output.target_spec || typeof output.target_spec !== 'object') {
+    reasons.push('target_spec_missing');
+    return report(false, reasons, verified);
+  }
+  if (!output.pipeline_manifest || typeof output.pipeline_manifest !== 'object') {
+    reasons.push('pipeline_manifest_missing');
+    return report(false, reasons, verified);
+  }
+  if (!output.biosecurity_policy || typeof output.biosecurity_policy !== 'object') {
+    reasons.push('biosecurity_policy_missing');
+    return report(false, reasons, verified);
+  }
+  if (!output.tier_distribution || typeof output.tier_distribution !== 'object') {
+    reasons.push('tier_distribution_missing');
+    return report(false, reasons, verified);
+  }
 
   // --- shape checks on the PDAOutput itself ---
   const pdaBytes = parseDigestHex(output.pda_hex ?? '');
@@ -218,6 +270,45 @@ export async function verifyPDA(
     reasons.push('pda_mismatch');
   }
 
+  // --- merkle_leaves_hex consistency check ---
+  // The PDAOutput exposes the per-candidate Merkle leaves as a
+  // convenience for selective-disclosure flows. They are not in the
+  // cryptographic chain that locks the final PDA hash (the root is),
+  // so an attacker who mutated leaves could not break pdaMatches above.
+  // BUT: the published field may mislead a future consumer who assumes
+  // the verifier checked them. Reject if the leaves are present and
+  // do not Merkle-fold to the published candidate_commit_root_hex.
+  if (Array.isArray(output.merkle_leaves_hex) && commitRootBytes) {
+    let leavesConsistent = true;
+    try {
+      const leafBytes: Uint8Array[] = [];
+      for (const leafHex of output.merkle_leaves_hex) {
+        if (typeof leafHex !== 'string') {
+          leavesConsistent = false;
+          break;
+        }
+        const lb = parseDigestHex(leafHex);
+        if (!lb) {
+          leavesConsistent = false;
+          break;
+        }
+        leafBytes.push(lb);
+      }
+      if (leavesConsistent && leafBytes.length > 0) {
+        const recomputedRoot = await pdaMerkleRoot(leafBytes);
+        if (!pdaTimingSafeEqual(recomputedRoot, commitRootBytes)) {
+          leavesConsistent = false;
+        }
+      }
+    } catch {
+      leavesConsistent = false;
+    }
+    verified['merkle_leaves_consistent'] = leavesConsistent;
+    if (!leavesConsistent) {
+      reasons.push('merkle_leaves_inconsistent_with_root');
+    }
+  }
+
   const passed =
     reasons.length === 0 &&
     verified['pda_matches'] === true &&
@@ -225,7 +316,8 @@ export async function verifyPDA(
     verified['tee_measurement_matches'] === true &&
     verified['tee_type_accepted'] === true &&
     verified['tee_nonce_fresh'] === true &&
-    verified['public_measurement_registered'] === true;
+    verified['public_measurement_registered'] === true &&
+    (verified['merkle_leaves_consistent'] !== false);
   return report(passed, reasons, verified);
 }
 
@@ -410,12 +502,21 @@ function report(
   passed: boolean,
   reasons: string[],
   verified: Record<string, boolean>,
+  internalErrorMessage?: string,
 ): PDAVerificationReport {
-  return {
+  const r: PDAVerificationReport = {
     passed,
     blocked_reasons: [...reasons],
     verified_fields: { ...verified },
   };
+  if (internalErrorMessage !== undefined) {
+    // Optional escape hatch for diagnostics. Only set when an internal
+    // exception bubbled up; consumers that key on blocked_reasons are
+    // unaffected.
+    (r as PDAVerificationReport & { _internal_error?: string })._internal_error =
+      internalErrorMessage;
+  }
+  return r;
 }
 
 // ---------------------------------------------------------------------------

@@ -194,9 +194,9 @@ candidate metadata.
 ## Package structure
 
 ```
-sdk/packages/atl-verifier/
+atl-verifier/
 ├── bin/
-│   └── atl-verify-pda.ts           · CLI entrypoint
+│   └── atl-verify-pda.js           · CLI entrypoint (plain JS)
 ├── src/
 │   ├── canonical-json.ts           · RFC 8785 JCS (ATL dialect)
 │   ├── commit.ts                   · VerifyCommit (Section 6.1)
@@ -221,19 +221,20 @@ sdk/packages/atl-verifier/
 │   ├── state-root.test.ts          · ATL state root
 │   ├── pda-verifier.test.ts        · PDA verifier (Vec A/B/C + tamper + dialect)
 │   └── pda-vectors/
-│       ├── generate.py             · regenerate fixtures from the Python ref
 │       ├── vector-{a,b,c}.json     · published PDAOutput for each vector
 │       └── vector-{a,b,c}.reveal.json · reveal bundles for commit-reveal tests
+├── scripts/
+│   └── copy-bin.mjs                · copies bin into dist/bin during build
 ├── package.json
-├── tsconfig.json                   · main library build
-├── tsconfig.bin.json               · CLI build (dist/bin/)
+├── tsconfig.json                   · library build (dist/)
 └── README.md                       · this file
 ```
 
 ## Tests
 
 ```bash
-pnpm -C sdk --filter @peptiderx/atl-verifier test
+npm install
+npm test
 ```
 
 Coverage (current head):
@@ -268,11 +269,16 @@ The PDA suite pins:
 ## Build
 
 ```bash
-pnpm -C sdk --filter @peptiderx/atl-verifier build
+npm install
+npm run build
 ```
 
 Produces `dist/` (library) and `dist/bin/atl-verify-pda.js` (CLI).
 
 ## License
 
-Apache-2.0.
+Apache-2.0. The repository LICENSE file additionally includes a non-binding
+notice declaring nonclinical research-only scope and disclaiming clinical or
+regulatory implications. The notice does not impose a use restriction beyond
+the terms of Apache-2.0; it is informational. If you need a use-restricted
+license, contact us before integrating.
