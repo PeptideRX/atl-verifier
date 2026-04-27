@@ -24,7 +24,8 @@ import { argv, exit, stdout } from 'node:process';
 
 // Resolves via the package's own "exports" entry after build. The
 // published bin under dist/bin/ hits "../pda/index.js"; in development
-// the project references the source tree via the sibling src/ layout.
+// the project references the source tree via the tsconfig "paths"
+// mapping so typecheck does not require a built dist/.
 import {
   verifyPDA,
   type PDAOutput,

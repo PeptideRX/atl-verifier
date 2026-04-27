@@ -6,7 +6,12 @@
     "composite": false,
     "declaration": false,
     "declarationMap": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "baseUrl": ".",
+    "paths": {
+      "@peptiderx/atl-verifier": ["./src/index.ts"],
+      "@peptiderx/atl-verifier/pda": ["./src/pda/index.ts"]
+    }
   },
   "include": ["bin/**/*"],
   "exclude": ["dist", "tests", "node_modules"]
