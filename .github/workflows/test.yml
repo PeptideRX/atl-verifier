@@ -1,0 +1,68 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
+    name: build and test on Node ${{ matrix.node-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Run vitest
+        run: npm test
+
+      - name: Verify the three frozen PDA hashes reproduce
+        run: |
+          cat > .verify-hashes.mjs <<'EOF'
+          import { verifyPDA } from './dist/index.js';
+          import { readFileSync } from 'node:fs';
+
+          const EXPECTED = {
+            'A': '28dbab77f560665f9b374b7fb8b5c0dfe8c8ff6582cbd29f773241acfb3a640e',
+            'B': '4c261a1105a45c55fb0d2eb45d74542b7f70b78b27aa41999cfa444400051594',
+            'C': '1bc8afdfee1152521fa1d7a2e9e1019b9d199879ab921f7f5c4874e06d1861f4',
+          };
+
+          let pass = 0, fail = 0;
+          for (const [name, expected] of Object.entries(EXPECTED)) {
+            const file = `tests/pda-vectors/vector-${name.toLowerCase()}.json`;
+            const output = JSON.parse(readFileSync(file, 'utf8'));
+            const hashMatches = output.pda_hex === expected;
+            const report = await verifyPDA(output, { acceptSimulator: true });
+            const ok = hashMatches && report.passed;
+            console.log(`Vector ${name}: hash=${hashMatches ? 'MATCH' : 'MISMATCH'} chain=${report.passed ? 'VERIFIED' : 'REJECTED'} ${ok ? 'PASS' : 'FAIL'}`);
+            if (ok) pass++; else fail++;
+          }
+          console.log(`Result: ${pass} passed, ${fail} failed.`);
+          process.exit(fail === 0 ? 0 : 1);
+          EOF
+          node .verify-hashes.mjs
