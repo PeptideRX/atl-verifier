@@ -1,6 +1,15 @@
 # @peptiderx/atl-verifier
 
+[![npm](https://img.shields.io/npm/v/@peptiderx/atl-verifier/experimental?label=npm&color=cb3837)](https://www.npmjs.com/package/@peptiderx/atl-verifier)
+[![test](https://github.com/PeptideRX/atl-verifier/actions/workflows/test.yml/badge.svg)](https://github.com/PeptideRX/atl-verifier/actions/workflows/test.yml)
+[![license](https://img.shields.io/npm/l/@peptiderx/atl-verifier?color=blue)](./LICENSE)
+[![status](https://img.shields.io/badge/status-experimental-orange)](#)
+
 > ⚠️ **EXPERIMENTAL · ACTIVE DEVELOPMENT.** This package is published in the open as part of building peptideRx in public. The protocol, schemas, and APIs are not stable. Things will change. Pin exact versions if you depend on it. File issues if something breaks. The cross-language byte-identical property is locked on the three published test vectors — everything else is fair game for revision.
+
+```bash
+npm install @peptiderx/atl-verifier@experimental
+```
 
 Pure-TypeScript client-side verifier for the Peptide Rx family of
 cryptographic commitments. Ships two independent surfaces inside one
