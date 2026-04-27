@@ -29,19 +29,16 @@
   "bin": {
     "atl-verify-pda": "./dist/bin/atl-verify-pda.js"
   },
-  "//": "After tsc compiles with rootDir='.', bin lands at dist/bin/ and src at dist/src/.",
   "files": [
     "dist/",
-    "bin/",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.bin.json",
+    "build": "tsc -p tsconfig.json && node scripts/copy-bin.mjs",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.bin.json --noEmit",
-    "cli:run": "node --experimental-strip-types bin/atl-verify-pda.ts"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

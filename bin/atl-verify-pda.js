@@ -22,27 +22,11 @@
 import { readFileSync } from 'node:fs';
 import { argv, exit, stdout } from 'node:process';
 
-// Resolves via the package's own "exports" entry after build. The
-// published bin under dist/bin/ hits "../pda/index.js"; in development
-// the project references the source tree via the tsconfig "paths"
-// mapping so typecheck does not require a built dist/.
-import {
-  verifyPDA,
-  type PDAOutput,
-  type VerifyPDAOptions,
-} from '@peptiderx/atl-verifier/pda';
+// Loaded relative to this file's compiled location at dist/bin/.
+import { verifyPDA } from '../pda/index.js';
 
-interface CliArgs {
-  path?: string;
-  acceptSimulator: boolean;
-  measurementHex?: string;
-  seenNonces: string[];
-  schemaVersion?: number;
-  showHelp: boolean;
-}
-
-function parseArgs(args: readonly string[]): CliArgs {
-  const out: CliArgs = {
+function parseArgs(args) {
+  const out = {
     acceptSimulator: true,
     seenNonces: [],
     showHelp: false,
@@ -94,7 +78,7 @@ function parseArgs(args: readonly string[]): CliArgs {
   return out;
 }
 
-function printHelp(): void {
+function printHelp() {
   stdout.write(
     [
       'atl-verify-pda · Peptide Design Attestation verifier',
@@ -120,12 +104,12 @@ function printHelp(): void {
   );
 }
 
-async function main(): Promise<void> {
-  let args: CliArgs;
+async function main() {
+  let args;
   try {
     args = parseArgs(argv.slice(2));
   } catch (e) {
-    stdout.write(`atl-verify-pda: ${(e as Error).message}\n`);
+    stdout.write(`atl-verify-pda: ${e.message}\n`);
     exit(2);
     return;
   }
@@ -140,25 +124,25 @@ async function main(): Promise<void> {
     return;
   }
 
-  let raw: string;
+  let raw;
   try {
     raw = readFileSync(args.path, 'utf8');
   } catch (e) {
-    stdout.write(`atl-verify-pda: cannot read ${args.path}: ${(e as Error).message}\n`);
+    stdout.write(`atl-verify-pda: cannot read ${args.path}: ${e.message}\n`);
     exit(2);
     return;
   }
 
-  let output: PDAOutput;
+  let output;
   try {
-    output = JSON.parse(raw) as PDAOutput;
+    output = JSON.parse(raw);
   } catch (e) {
-    stdout.write(`atl-verify-pda: invalid JSON at ${args.path}: ${(e as Error).message}\n`);
+    stdout.write(`atl-verify-pda: invalid JSON at ${args.path}: ${e.message}\n`);
     exit(2);
     return;
   }
 
-  const options: VerifyPDAOptions = {
+  const options = {
     acceptSimulator: args.acceptSimulator,
     seenNoncesHex: args.seenNonces,
   };
@@ -193,7 +177,7 @@ async function main(): Promise<void> {
     }
     exit(report.passed ? 0 : 1);
   } catch (e) {
-    stdout.write(`atl-verify-pda: verifier crashed: ${(e as Error).message}\n`);
+    stdout.write(`atl-verify-pda: verifier crashed: ${e.message}\n`);
     exit(2);
   }
 }
