@@ -1,0 +1,69 @@
+{
+  "generated_at": "pinned",
+  "vectors": [
+    {
+      "name": "scalars",
+      "input": {
+        "n": 1,
+        "s": "hello",
+        "b": true,
+        "z": null
+      },
+      "canonical": "{\"b\":true,\"n\":1,\"s\":\"hello\",\"z\":null}"
+    },
+    {
+      "name": "key_ordering",
+      "input": {
+        "b": 2,
+        "a": 1,
+        "c": 3
+      },
+      "canonical": "{\"a\":1,\"b\":2,\"c\":3}"
+    },
+    {
+      "name": "nested",
+      "input": {
+        "target": "GLP-1R",
+        "predictions": [
+          {
+            "id": "P1",
+            "value_nM": 45
+          },
+          {
+            "id": "P2",
+            "value_nM": 8
+          }
+        ],
+        "evidence_grade": "B"
+      },
+      "canonical": "{\"evidence_grade\":\"B\",\"predictions\":[{\"id\":\"P1\",\"value_nM\":45},{\"id\":\"P2\",\"value_nM\":8}],\"target\":\"GLP-1R\"}"
+    },
+    {
+      "name": "unicode_escape",
+      "input": {
+        "s": "line1\nline2\t\"quoted\""
+      },
+      "canonical": "{\"s\":\"line1\\nline2\\t\\\"quoted\\\"\"}"
+    },
+    {
+      "name": "zero_signs",
+      "input": {
+        "pos": 0,
+        "neg": 0,
+        "huge": 1e+21
+      },
+      "canonical": "{\"huge\":1e+21,\"neg\":0,\"pos\":0}"
+    },
+    {
+      "name": "atl_001_prediction_p1",
+      "input": {
+        "id": "P1",
+        "endpoint": "GLP-1R binding Ki",
+        "assay": "Cisbio TR-FRET",
+        "predicted_max_nM": 50,
+        "schema_version": "peptide_rx_prediction_v1"
+      },
+      "canonical": "{\"assay\":\"Cisbio TR-FRET\",\"endpoint\":\"GLP-1R binding Ki\",\"id\":\"P1\",\"predicted_max_nM\":50,\"schema_version\":\"peptide_rx_prediction_v1\"}"
+    }
+  ]
+}

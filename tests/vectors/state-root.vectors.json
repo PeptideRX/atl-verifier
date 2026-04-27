@@ -1,0 +1,70 @@
+{
+  "vectors": [
+    {
+      "name": "atl_001_happy_path",
+      "thesis_id": "ATL-001",
+      "events": [
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "THESIS_COMMITTED",
+          "payload": {
+            "schema_version": "peptide_rx_thesis_v1",
+            "target": "GLP-1R (UniProt P43220)",
+            "evidence_grade": "B"
+          },
+          "artifact_hashes": []
+        },
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "PREDICTIONS_LOCKED",
+          "payload": {
+            "commitment_root": "ff4cb095af6eb0c2b440805cb15979e327c41c63eeeb2742d3c2b7ea44d781bb"
+          },
+          "artifact_hashes": [
+            "ff4cb095af6eb0c2b440805cb15979e327c41c63eeeb2742d3c2b7ea44d781bb",
+            "570e290e79880f8ad36a42732144aceb86fe70f955895b490845dd14fcb8a6f0",
+            "ff29bb32bb947771448fe812bc90e4546e1bb9c84b8093e61a5ffe6fdf980975",
+            "cb6e327ae9d56893d0bc24207a5dcc676379888b174eea1213dc6694a2c57d71"
+          ]
+        },
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "SYNTHESIS_ATTESTED",
+          "payload": {
+            "cro": "GenScript",
+            "batch_id": "ATL-001-B01"
+          },
+          "artifact_hashes": [
+            "1111111111111111111111111111111111111111111111111111111111111111",
+            "2222222222222222222222222222222222222222222222222222222222222222"
+          ]
+        },
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "OUTCOME_COMMITTED",
+          "payload": {
+            "endpoint_hashes": 4
+          },
+          "artifact_hashes": []
+        },
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "PREDICTIONS_REVEALED",
+          "payload": {
+            "reveal_count": 4
+          },
+          "artifact_hashes": []
+        },
+        {
+          "thesis_id": "ATL-001",
+          "event_type": "POSTERIOR_UPDATED",
+          "payload": {
+            "library_version": "lpo_v0.2.0"
+          },
+          "artifact_hashes": []
+        }
+      ],
+      "state_root_hex": "ba5bffb6d225f9a64135abe06be8033e4c072cdc76a0d325a8f624267ab3f0af"
+    }
+  ]
+}

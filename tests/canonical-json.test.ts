@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { canonicalizeJSON } from '../src/canonical-json.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const vectorsPath = join(here, '../../../tests/vectors/canonical-json.vectors.json');
+const vectorsPath = join(here, '../tests/vectors/canonical-json.vectors.json');
 
 interface Vector {
   name: string;

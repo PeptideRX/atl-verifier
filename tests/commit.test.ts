@@ -8,7 +8,7 @@ import { DOMAIN_SEPARATOR } from '../src/constants.js';
 import type { JsonValue } from '../src/canonical-json.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const vectorsPath = join(here, '../../../tests/vectors/commit.vectors.json');
+const vectorsPath = join(here, '../tests/vectors/commit.vectors.json');
 
 interface CommitVector {
   name: string;

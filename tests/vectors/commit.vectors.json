@@ -1,0 +1,55 @@
+{
+  "domain_separator": "PEPTIDE_RX_ATL_PREDICTION_V1",
+  "schema_version": "peptide_rx_prediction_v1",
+  "vectors": [
+    {
+      "name": "atl_001_p1",
+      "payload": {
+        "id": "P1",
+        "endpoint": "GLP-1R binding Ki",
+        "assay": "Cisbio TR-FRET",
+        "predicted_max_nM": 50,
+        "schema_version": "peptide_rx_prediction_v1"
+      },
+      "salt_hex": "0000000000000000000000000000000000000000000000000000000000000001",
+      "commit_hex": "ff4cb095af6eb0c2b440805cb15979e327c41c63eeeb2742d3c2b7ea44d781bb"
+    },
+    {
+      "name": "atl_001_p2",
+      "payload": {
+        "id": "P2",
+        "endpoint": "cell-based cAMP EC50",
+        "assay": "HEK293-GLP1R reporter",
+        "predicted_max_nM": 10,
+        "schema_version": "peptide_rx_prediction_v1"
+      },
+      "salt_hex": "0000000000000000000000000000000000000000000000000000000000000002",
+      "commit_hex": "570e290e79880f8ad36a42732144aceb86fe70f955895b490845dd14fcb8a6f0"
+    },
+    {
+      "name": "atl_001_p3",
+      "payload": {
+        "id": "P3",
+        "endpoint": "BBB Papp",
+        "assay": "MDCK-MDR1 monolayer",
+        "predicted_min_cms": 0.000001,
+        "schema_version": "peptide_rx_prediction_v1"
+      },
+      "salt_hex": "0000000000000000000000000000000000000000000000000000000000000003",
+      "commit_hex": "ff29bb32bb947771448fe812bc90e4546e1bb9c84b8093e61a5ffe6fdf980975"
+    },
+    {
+      "name": "atl_001_p4",
+      "payload": {
+        "id": "P4",
+        "endpoint": "serum stability t_half",
+        "assay": "LC-MS stability",
+        "predicted_min_hours": 6,
+        "matrix": "human serum 37C",
+        "schema_version": "peptide_rx_prediction_v1"
+      },
+      "salt_hex": "0000000000000000000000000000000000000000000000000000000000000004",
+      "commit_hex": "cb6e327ae9d56893d0bc24207a5dcc676379888b174eea1213dc6694a2c57d71"
+    }
+  ]
+}
